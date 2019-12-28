@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "values-card",
+    "prod": "values-card",
+    "staging": "values-card-test"
+  }
+}
