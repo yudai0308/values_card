@@ -1,33 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
+// Firebase
 import { db } from "../firebase"
-import "./App.css";
+// Router
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+// Material-UI
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+// Components
+import Header from './Header';
+import Toppage from './Toppage';
+import Field from "./Field";
+// Other
+import { useStyles } from "../styles";
+
+const darkTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
 
 function App() {
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
-  const getList = () => {
-    return comments.map((c, i) => <li key={i}>{c}</li>);
-  }
-  const handleChange = (e) => {
-    const val = e.target.value;
-    setComment(val);
-    return;
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setComments([...comments, comment]);
-    db.collection("rooms").add({ comment: comment })
-    return;
-  }
-
+  const classes = useStyles();
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="comment" onChange={handleChange} style={{ margin: "20px" }} />
-        <input type="submit" />
-      </form>
-      <ul>{getList()}</ul>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <Header />
+      <CssBaseline />
+      <Container fixed>
+        <Box display="flex" justifyContent="center" m={2} >
+          <Typography component="div" className={classes.baseField}>
+            <Router>
+              <Route exact path="/" component={Toppage} />
+              <Route path="/single" component={Field} />
+              {/* <Toppage /> */}
+              {/* <Field /> */}
+            </Router>
+          </Typography>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 
