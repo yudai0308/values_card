@@ -16,6 +16,7 @@ import Single from './Single';
 import Room from './Room';
 import About from './About';
 import Field from "./Field";
+import Test from "./Test";
 // Other
 import { useStyles } from "../styles";
 
@@ -28,7 +29,7 @@ const darkTheme = createMuiTheme({
 function App() {
   const classes = useStyles();
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider /*theme={darkTheme}*/>
       <Header />
       <CssBaseline />
       <Container fixed>
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/single" component={Single} />
                 <Route path="/room" component={Room} />
                 <Route path="/about" component={About} />
+                <Route path="/test" component={Test} />
                 <Route path="*"><Redirect to="/"></Redirect></Route>
               </Switch>
             </Router>
