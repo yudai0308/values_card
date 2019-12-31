@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 export default function Toppage() {
   return (
     <Typography component="div">
-      Single
+      Test
     </Typography>
   );
 }
