@@ -30,22 +30,22 @@ function App() {
   const classes = useStyles();
   return (
     <ThemeProvider /*theme={darkTheme}*/>
-      <Header />
+      {/* <Header /> */}
       <CssBaseline />
       <Container fixed>
         <Box display="flex" justifyContent="center" m={2} >
-          <Typography component="div" className={classes.baseField}>
+          <Box className={classes.baseField}>
             <Router>
               <Switch>
                 <Route exact path="/" component={Toppage} />
                 <Route path="/single" component={Single} />
                 <Route path="/room" component={Room} />
                 <Route path="/about" component={About} />
-                <Route path="/test" component={Test} />
+                <Route path="/test" component={Field} />
                 <Route path="*"><Redirect to="/"></Redirect></Route>
               </Switch>
             </Router>
-          </Typography>
+          </Box>
         </Box>
       </Container>
     </ThemeProvider>

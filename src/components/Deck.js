@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,17 +15,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimplePaper() {
+export default function SimplePaper({ style }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Paper style={{zIndex: 5, top: 0}} elevation={3} />
-      <Paper style={{zIndex: 4, top: 2}} elevation={3} />
-      <Paper style={{zIndex: 3, top: 4}} elevation={3} />
-      <Paper style={{zIndex: 2, top: 6}} elevation={3} />
-      <Paper style={{zIndex: 1, top: 8}} elevation={3} />
-      <Paper style={{zIndex: 0, top: 10}} elevation={3} />
-    </div>
+    <Box
+      className={classes.root}
+      style={style}
+    >
+      <Paper style={{ zIndex: 5, top: 0 }} elevation={3} />
+      <Paper style={{ zIndex: 4, top: 2 }} elevation={3} />
+      <Paper style={{ zIndex: 3, top: 4 }} elevation={3} />
+      <Paper style={{ zIndex: 2, top: 6 }} elevation={3} />
+      <Paper style={{ zIndex: 1, top: 8 }} elevation={3} />
+      <Paper style={{ zIndex: 0, top: 10 }} elevation={3} />
+    </Box
+    >
   );
 }
