@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import blueGray from '@material-ui/core/colors/blueGrey';
-import {field} from './conf';
+import { field } from './conf';
 
 export const useStyles = makeStyles(theme => ({
   baseField: {
