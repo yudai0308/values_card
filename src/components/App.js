@@ -18,7 +18,7 @@ import About from './About';
 import Field from "./Field";
 import Test from "./Test";
 // Other
-import { useStyles } from "../styles";
+import { useFieldStyles } from "../styles";
 
 const darkTheme = createMuiTheme({
   palette: {
@@ -27,14 +27,14 @@ const darkTheme = createMuiTheme({
 });
 
 function App() {
-  const classes = useStyles();
+  const fieldClasses = useFieldStyles();
   return (
     <ThemeProvider /*theme={darkTheme}*/>
       {/* <Header /> */}
       <CssBaseline />
       <Container fixed>
         <Box display="flex" justifyContent="center" m={2} >
-          <Box className={classes.baseField}>
+          <Box className={fieldClasses.baseField}>
             <Router>
               <Switch>
                 <Route exact path="/" component={Toppage} />
