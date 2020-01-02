@@ -1,14 +1,12 @@
-import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import React, { useContext } from "react";
+import { GameContext } from "../contexts"
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
-import blueGray from '@material-ui/core/colors/blueGrey';
 import Deck from './Deck'
-import { field } from '../conf';
 import { useFieldStyles, useHandStyles } from '../styles';
 
 export default function Field() {
+  const gameState = useContext(GameContext);
   const fieldClasses = useFieldStyles();
   const handClasses = useHandStyles();
   const getCards = n => {
