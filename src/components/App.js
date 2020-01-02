@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { GameContext } from "../contexts";
 // Firebase
 import { db } from "../firebase"
@@ -27,18 +27,6 @@ import { useFieldStyles } from "../styles";
 
 function App() {
   const fieldClasses = useFieldStyles();
-  const [gameState, setGameState] = useState({
-    wasStarted: false,
-    wasEnded: false,
-    deck: [],
-    discards: [],
-    players: [
-      // {
-      //   id: null, name: "", hand: [],
-      //   drew: { id: null, name: "" }
-      // },
-    ],
-  })
   return (
     <ThemeProvider /*theme={darkTheme}*/>
       {/* <Header /> */}
@@ -52,12 +40,7 @@ function App() {
                 <Route path="/single" component={Single} />
                 <Route path="/room" component={Room} />
                 <Route path="/about" component={About} />
-                <ContextRoute
-                  path="/test"
-                  component={Field}
-                  provider={GameContext.Provider}
-                  value={gameState}
-                />
+                <Route path="/test" component={Field} />
                 <Route path="*" ><Redirect to="/" /></Route>
               </Switch>
             </Router>
