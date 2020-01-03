@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from 'react-router-dom'
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { field } from '../conf'
+import { fieldFrame } from '../conf'
 
 export default function Toppage() {
   return (
     <Typography component="div" variant="h4">
       <Box
-        height={field.height}
+        height={fieldFrame.height}
         display="flex"
         flexDirection="column"
         justifyContent="center"
