@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-// import { GameContext } from "../contexts"
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
-import Deck from './Deck'
-import Hand from './Hand'
-import { useFieldStyles, useHandStyles } from '../styles';
+import { Box } from '@material-ui/core';
+import NameFiled from './NameField';
+import Deck from './Deck';
+import Hand from './Hand';
+import Game from '../game';
+import { useFieldStyles } from '../styles';
+import { defaultGameState } from '../conf';
+import { GameContext } from '../contexts';
 
 /*
 1. 「開始」ボタンを押す => wasStarted を true に変更
@@ -14,43 +16,38 @@ import { useFieldStyles, useHandStyles } from '../styles';
 5. 手札から１枚選んで捨てる => 捨てたカードはサイドフィールドへ
 6. ４、５を繰り返して deck が０になったら終了 => wasEnded を true に変更
 7. 結果表示画面を表示
+
+※ひとりプレーの場合、firestore にデータを保存する必要はない
 */
 
-export default function Field() {
-  // const gameState = useContext(GameContext);
+export default function Field({ isSingleMode }) {
   const fieldClasses = useFieldStyles();
-  const handClasses = useHandStyles();
   const [gameState, setGameState] = useState({
-    wasStarted: false,
-    wasEnded: false,
-    deck: [],
-    discards: [],
-    players: [
-      // {
-      //   id: null, name: "", hand: [],
-      //   drew: { id: null, name: "" }
-      // },
-    ],
-  })
+    ...defaultGameState,
+    isSingleMode: isSingleMode,
+  });
 
   return (
-    <Box display="flex" justifyContent="center">
-      <Deck style={{ left: 350 - 40, top: 300 - 56 }} />
-      <Box className={fieldClasses.mainField}>
-        <Hand cardNum={6} />
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-        >
-          <Hand cardNum={6} isVirtical={false} centering={false} />
-          <Hand cardNum={6} isVirtical={false} centering={false} />
+    <GameContext.Provider value={{ gameState: gameState, setGameState: setGameState }}>
+      <Box display="flex" justifyContent="center">
+        <Deck style={{ left: 350 - 40, top: 300 - 56 }} />
+        <Box className={fieldClasses.mainField}>
+          <Hand cardNum={6} />
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+          >
+            <Hand cardNum={6} isVirtical={false} centering={false} />
+            <NameFiled />
+            <Hand cardNum={6} isVirtical={false} centering={false} />
+          </Box>
+          <Hand cardNum={6} />
         </Box>
-        <Hand cardNum={6} />
+        <Box className={fieldClasses.sideField}>
+          SIDE
       </Box>
-      <Box className={fieldClasses.sideField}>
-        SIDE
       </Box>
-    </Box>
+    </GameContext.Provider>
   );
 }
