@@ -5,16 +5,21 @@ export const fieldFrame = {
 };
 
 export const defaultGameState = {
+  isSingleMode: true,
   wasStarted: false,
   wasEnded: false,
   deck: [],
   discards: [],
   players: [],
+  timestamp: new Date(),
 };
 
 export const defaultPlayerState = {
   id: null,
+  isMyState: false,
+  isReady: false,
   name: "",
   hand: [],
   drew: { id: null, name: "" },
+  result: { value: [], comment: "" }
 };
