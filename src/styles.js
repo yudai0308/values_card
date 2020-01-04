@@ -1,22 +1,22 @@
 import { makeStyles } from '@material-ui/core/styles';
 import blueGray from '@material-ui/core/colors/blueGrey';
-import { field } from './conf';
+import { fieldFrame } from './conf';
 
 export const useFieldStyles = makeStyles(theme => ({
   baseField: {
     backgroundColor: blueGray[100],
-    width: field.width,
-    height: field.height,
+    width: fieldFrame.width,
+    height: fieldFrame.height,
   },
   mainField: {
     backgroundColor: blueGray[100],
-    minWidth: field.width - field.sideWidth,
-    height: field.height,
+    minWidth: fieldFrame.width - fieldFrame.sideWidth,
+    height: fieldFrame.height,
   },
   sideField: {
     backgroundColor: blueGray[200],
-    minWidth: field.sideWidth,
-    height: field.height,
+    minWidth: fieldFrame.sideWidth,
+    height: fieldFrame.height,
   },
 }));
 
