@@ -1,7 +1,4 @@
 import React from "react";
-import { GameContext } from "../contexts";
-// Firebase
-import { db } from "../firebase"
 // Router
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import ContextRoute from "./ContextRoute";
@@ -16,7 +13,6 @@ import Toppage from './Toppage';
 import Single from './Single';
 import Room from './Room';
 import About from './About';
-import Field from "./Field";
 import Test from "./Test";
 // Other
 import { useFieldStyles } from "../styles";
@@ -40,7 +36,7 @@ function App() {
                 <Route path="/single" component={Single} />
                 <Route path="/room" component={Room} />
                 <Route path="/about" component={About} />
-                <Route path="/test" component={Field} />
+                <Route path="/test" component={Test} />
                 <Route path="*" ><Redirect to="/" /></Route>
               </Switch>
             </Router>
