@@ -4,6 +4,11 @@ export const fieldFrame = {
   sideWidth: 100
 };
 
+export const cardFrame = {
+  width: 64,
+  height: 80,
+}
+
 export const defaultGameState = {
   isSingleMode: true,
   wasStarted: false,
