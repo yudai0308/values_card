@@ -34,7 +34,7 @@ export default class Game {
   static IamReady(gameState) {
     const players = gameState.players;
     if (players.length === 0) {
-      console.log("プレイヤーが見つかりません。");
+      // console.log("プレイヤーが見つかりません。");
       return false;
     }
     const me = this.getMyState(gameState);
