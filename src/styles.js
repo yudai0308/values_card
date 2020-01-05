@@ -17,6 +17,9 @@ export const useFieldStyles = makeStyles(theme => ({
     backgroundColor: blueGray[200],
     minWidth: fieldFrame.sideWidth,
     height: fieldFrame.height,
+    display: "flex",
+    justifyContent: "center",
+    overflow: "scroll",
   },
 }));
 
@@ -28,6 +31,7 @@ export const useHandStyles = makeStyles(theme => ({
       width: theme.spacing(8),
       height: theme.spacing(10),
       padding: 3,
+      cursor: "pointer",
     },
   },
   hCards: {
@@ -37,6 +41,7 @@ export const useHandStyles = makeStyles(theme => ({
       width: theme.spacing(10),
       height: theme.spacing(8),
       padding: 3,
+      cursor: "pointer",
     },
   },
 }));
