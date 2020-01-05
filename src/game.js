@@ -15,7 +15,6 @@ export default class Game {
    */
   static isSingleMode() {
     const path = window.location.pathname;
-    console.log(path)
     if (path === "/single") {
       return true;
     } else {
@@ -44,7 +43,7 @@ export default class Game {
   /**
    * firestore からカード情報を取得
    */
-  async getAllCadrs() {
+  static async getAllCadrs() {
     const cardsRef = db.collection("cards").doc("all");
     const doc = await cardsRef.get();
     if (doc.exists) {
@@ -58,8 +57,8 @@ export default class Game {
    * カード情報を取得して配列をシャッフル
    */
   static async createDeck() {
-    let data = await this.getAllCadrs();
-    data = shuffle(data);
-    return data;
+    let card = await this.getAllCadrs();
+    const cards = shuffle(card.names);
+    return cards;
   }
 }
