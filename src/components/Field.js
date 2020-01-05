@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Box, } from '@material-ui/core';
 import NameFiled from './NameField';
 import Deck from './Deck';
-import Hand from './Hand';
+import HandBack from './HandBack';
+import HandFront from './HandFront';
 import Discard from './Discard';
 import Game from '../game';
 import { useFieldStyles } from '../styles';
@@ -28,6 +29,7 @@ export default function Field({ isSingleMode }) {
     isSingleMode: isSingleMode,
   });
   const deckPosition = { top: 220, left: 300 }
+  const me = Game.getMyState(gameState);
   console.log(gameState)
 
   return (
@@ -36,7 +38,7 @@ export default function Field({ isSingleMode }) {
         <Deck style={deckPosition} />
         <Box className={fieldClasses.mainField}>
           <Box style={{ width: 700, height: 90 }}>
-            {gameState.isSingleMode ? null : <Hand cardNum={5} />}
+            {gameState.isSingleMode ? null : <HandBack cardNum={5} />}
           </Box>
           <Box style={{ width: 700, height: 420 }}>
             <Box
@@ -45,18 +47,18 @@ export default function Field({ isSingleMode }) {
               justifyContent="space-between"
             >
               <Box style={{ width: 86, height: 420 }}>
-                {gameState.isSingleMode ? null : <Hand cardNum={5} isVirtical={false} centering={false} />}
+                {gameState.isSingleMode ? null : <HandBack cardNum={5} isVirtical={false} centering={false} />}
               </Box>
               <Box style={{ width: 528, height: 420 }}>
                 <NameFiled />
               </Box>
               <Box style={{ width: 86, height: 420 }}>
-                {gameState.isSingleMode ? null : <Hand cardNum={5} isVirtical={false} centering={false} />}
+                {gameState.isSingleMode ? null : <HandBack cardNum={5} isVirtical={false} centering={false} />}
               </Box>
             </Box>
           </Box>
           <Box style={{ width: 700, height: 90 }}>
-            <Hand cardNum={5} />
+            {me ? <HandFront texts={me.hand} /> : null}
           </Box>
         </Box>
         <Box className={fieldClasses.sideField}>

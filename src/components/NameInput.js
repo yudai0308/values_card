@@ -1,4 +1,5 @@
 import React, { useContext, useRef } from 'react';
+import Game from '../game';
 import { GameContext } from '../contexts';
 import { defaultPlayerState } from '../conf';
 import {
@@ -23,16 +24,19 @@ export default function NameInput({ style }) {
   const { gameState, setGameState } = useContext(GameContext);
   const inputRef = useRef();
   const classes = useStyles();
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const name = inputRef.current.value;
     // inputRef.current.value = "";
-    const playerState = {
-      ...defaultPlayerState, name: name, isReady: true, isMyState: true,
+    let deck = await Game.createDeck();
+    let hand = [];
+    for (let i = 0; i < 5; i++) { hand.push(deck.shift()) }
+    const myState = {
+      ...defaultPlayerState, name: name, hand: hand, isReady: true, isMyState: true,
     };
     if (gameState.isSingleMode) {
       setGameState(prev => {
-        return {...prev, wasStarted: true, players: [playerState]};
+        return { ...prev, wasStarted: true, deck: deck, players: [myState] };
       });
     } else {
       // みんなで遊ぶ場合
