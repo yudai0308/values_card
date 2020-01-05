@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Box } from '@material-ui/core';
+import { Box, } from '@material-ui/core';
 import NameFiled from './NameField';
 import Deck from './Deck';
 import Hand from './Hand';
+import Discard from './Discard';
 import Game from '../game';
 import { useFieldStyles } from '../styles';
-import { defaultGameState } from '../conf';
+import { defaultGameState, fieldFrame, cardFrame } from '../conf';
 import { GameContext } from '../contexts';
 
 /*
@@ -26,27 +27,41 @@ export default function Field({ isSingleMode }) {
     ...defaultGameState,
     isSingleMode: isSingleMode,
   });
+  const deckPosition = { top: 220, left: 300 }
+  console.log(gameState)
 
   return (
     <GameContext.Provider value={{ gameState: gameState, setGameState: setGameState }}>
       <Box display="flex" justifyContent="center">
-        <Deck style={{ left: 350 - 40, top: 300 - 56 }} />
+        <Deck style={deckPosition} />
         <Box className={fieldClasses.mainField}>
-          <Hand cardNum={6} />
-          <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-          >
-            <Hand cardNum={6} isVirtical={false} centering={false} />
-            <NameFiled />
-            <Hand cardNum={6} isVirtical={false} centering={false} />
+          <Box style={{ width: 700, height: 90 }}>
+            {gameState.isSingleMode ? null : <Hand cardNum={5} />}
           </Box>
-          <Hand cardNum={6} />
+          <Box style={{ width: 700, height: 420 }}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+            >
+              <Box style={{ width: 86, height: 420 }}>
+                {gameState.isSingleMode ? null : <Hand cardNum={5} isVirtical={false} centering={false} />}
+              </Box>
+              <Box style={{ width: 528, height: 420 }}>
+                <NameFiled />
+              </Box>
+              <Box style={{ width: 86, height: 420 }}>
+                {gameState.isSingleMode ? null : <Hand cardNum={5} isVirtical={false} centering={false} />}
+              </Box>
+            </Box>
+          </Box>
+          <Box style={{ width: 700, height: 90 }}>
+            <Hand cardNum={5} />
+          </Box>
         </Box>
         <Box className={fieldClasses.sideField}>
-          SIDE
-      </Box>
+          <Discard />
+        </Box>
       </Box>
     </GameContext.Provider>
   );

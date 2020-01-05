@@ -28,10 +28,16 @@ export default function NameInput({ style }) {
     const name = inputRef.current.value;
     // inputRef.current.value = "";
     const playerState = {
-      ...defaultPlayerState, name: name,
-      isReady: true, isMyState: true,
+      ...defaultPlayerState, name: name, isReady: true, isMyState: true,
     };
-    setGameState({ ...gameState, players: [playerState] });
+    if (gameState.isSingleMode) {
+      setGameState(prev => {
+        return {...prev, wasStarted: true, players: [playerState]};
+      });
+    } else {
+      // みんなで遊ぶ場合
+      return;
+    }
   }
   return (
     <Box style={{ ...style, position: "relative" }}>
