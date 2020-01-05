@@ -8,12 +8,14 @@ export default function NameFiled() {
   const { gameState } = useContext(GameContext);
   const nameInputStyle = {
     position: "relative",
-    top: 360,
+    marginTop: 360,
+    textAlign: "center",
     display: Game.IamReady(gameState) ? "none" : "block",
   }
   const nameElemStyle = {
     position: "relative",
-    top: 380,
+    marginTop: 380,
+    textAlign: "center",
     display: Game.IamReady(gameState) ? "block" : "none",
   }
 
