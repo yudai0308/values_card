@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 const useStyles = makeStyles(theme => ({
   root: {
     position: "relative",
+    cursor: "pointer",
     "& > *": {
       margin: theme.spacing(1),
       width: theme.spacing(10),
