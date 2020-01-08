@@ -53,7 +53,7 @@ export default class Game {
       console.log("カードが登録されていません。")
     }
     */
-   return values;
+    return values;
   }
 
   /**
@@ -72,11 +72,11 @@ export default class Game {
       return gameState;
     }
 
-    let newGameState = {...gameState};
+    let newGameState = { ...gameState };
     const drew = newGameState.deck.shift();
     if (newGameState.isSingleMode) {
       let me = this.getMyState(newGameState);
-      me.drew = drew
+      me = { ...me, drew: drew, canDraw: false };
       newGameState.players = [me];
       return newGameState;
     } else {
