@@ -7,3 +7,7 @@ export const shuffle = array => {
   }
   return array;
 }
+
+export const sleep = msec => {
+  return new Promise(resolve => setTimeout(resolve, msec));
+}
