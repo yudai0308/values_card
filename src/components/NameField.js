@@ -11,13 +11,13 @@ export default function NameFiled() {
     marginTop: 360,
     textAlign: "center",
     display: Game.IamReady(gameState) ? "none" : "block",
-  }
+  };
   const nameElemStyle = {
     position: "relative",
     marginTop: 380,
     textAlign: "center",
     display: Game.IamReady(gameState) ? "block" : "none",
-  }
+  };
 
   let component;
   if (gameState.isSingleMode) {
