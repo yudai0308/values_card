@@ -3,7 +3,7 @@ import { Box, } from '@material-ui/core';
 import NameFiled from './NameField';
 import Deck from './Deck';
 import HandBack from './HandBack';
-import HandFront from './HandFront';
+import MyHand from './MyHand';
 import Discard from './Discard';
 import Game from '../game';
 import { useFieldStyles } from '../styles';
@@ -30,7 +30,6 @@ export default function Field({ isSingleMode }) {
   });
   const deckPosition = { top: 220, left: 300 }
   const me = Game.getMyState(gameState);
-  console.log(gameState)
 
   return (
     <GameContext.Provider value={{ gameState: gameState, setGameState: setGameState }}>
@@ -58,7 +57,7 @@ export default function Field({ isSingleMode }) {
             </Box>
           </Box>
           <Box style={{ width: 700, height: 90 }}>
-            {me ? <HandFront texts={me.hand} /> : null}
+            {me ? <MyHand hand={me.hand} /> : null}
           </Box>
         </Box>
         <Box className={fieldClasses.sideField}>
