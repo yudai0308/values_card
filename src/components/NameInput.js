@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import Game from '../game';
+import { sleep } from '../libs';
 import { GameContext } from '../contexts';
 import { defaultPlayerState } from '../conf';
 import {
@@ -27,17 +28,20 @@ export default function NameInput({ style }) {
   const handleSubmit = async e => {
     e.preventDefault();
     const name = inputRef.current.value;
-    // inputRef.current.value = "";
     let deck = await Game.createDeck();
     let hand = [];
     for (let i = 0; i < 5; i++) { hand.push(deck.shift()) }
     const myState = {
-      ...defaultPlayerState, name: name, hand: hand, isReady: true, isMyState: true,
+      ...defaultPlayerState, name: name, hand: hand,
+      isReady: true, isMyState: true,
     };
     if (gameState.isSingleMode) {
       setGameState(prev => {
         return { ...prev, wasStarted: true, deck: deck, players: [myState] };
       });
+      await sleep(2500);
+      myState.canDraw = true;
+      setGameState(prev => ({ ...prev, players: [myState] }));
     } else {
       // みんなで遊ぶ場合
       return;
