@@ -1,6 +1,6 @@
 import { db } from "./firebase";
 import { shuffle } from "./libs";
-import { defaultGameState } from "./conf";
+import { values, defaultGameState, defaultPlayerState } from "./conf";
 
 export default class Game {
   /**
@@ -43,7 +43,8 @@ export default class Game {
   /**
    * firestore からカード情報を取得
    */
-  static async getAllCadrs() {
+  static async getAllValues() {
+    /*
     const cardsRef = db.collection("cards").doc("all");
     const doc = await cardsRef.get();
     if (doc.exists) {
@@ -51,14 +52,35 @@ export default class Game {
     } else {
       console.log("カードが登録されていません。")
     }
+    */
+   return values;
   }
 
   /**
    * カード情報を取得して配列をシャッフル
    */
   static async createDeck() {
-    let card = await this.getAllCadrs();
-    const cards = shuffle(card.names);
-    return cards;
+    let values = await this.getAllValues();
+    values = shuffle(values);
+    return values;
+  }
+
+  static drawCard(gameState) {
+    const deck = gameState.deck;
+    if (deck.length === 0) {
+      console.log("山札にカードがありません。");
+      return gameState;
+    }
+
+    let newGameState = {...gameState};
+    const drew = newGameState.deck.shift();
+    if (newGameState.isSingleMode) {
+      let me = this.getMyState(newGameState);
+      me.drew = drew
+      newGameState.players = [me];
+      return newGameState;
+    } else {
+      return;
+    }
   }
 }
