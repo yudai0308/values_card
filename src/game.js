@@ -65,7 +65,7 @@ export default class Game {
     return values;
   }
 
-  static drawCard(gameState) {
+  static drawCardFromDeck(gameState) {
     const deck = gameState.deck;
     if (deck.length === 0) {
       console.log("山札にカードがありません。");

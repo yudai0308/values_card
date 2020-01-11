@@ -24,7 +24,7 @@ export default function SimplePaper({ style }) {
   const me = Game.getMyState(gameState);
   const clickDeckHandle = () => {
     if (gameState.wasStarted && me.canDraw) {
-      const newGameState = Game.drawCard(gameState);
+      const newGameState = Game.drawCardFromDeck(gameState);
       setGameState(newGameState);
     }
   }
