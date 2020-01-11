@@ -13,6 +13,7 @@ export const defaultGameState = {
   isSingleMode: true,
   wasStarted: false,
   wasEnded: false,
+  turn: 0,
   deck: [],
   discards: [],
   players: [],
