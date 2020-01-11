@@ -4,31 +4,41 @@ import { Box, Paper, Zoom } from '@material-ui/core';
 import { useHandStyles } from '../styles';
 import Game from '../game';
 
-export default function MyHand(/*{ hand, isVirtical = true, centering = true }*/) {
-  const { gameState } = useContext(GameContext);
+export default function MyHand() {
+  const { gameState, setGameState } = useContext(GameContext);
   const handClasses = useHandStyles();
   const me = Game.getMyState(gameState);
+  const discardHandle = cardId => {
+    const newGameState = Game.discard(gameState, cardId);
+    setGameState(newGameState);
+  }
   const getHandCards = hand => {
-    const cards = hand.map((card, i) => {
+    return hand.map((card, i) => {
       return (
-        <Zoom key={card.id} in={gameState.wasStarted} style={{
-          transitionDelay: gameState.wasStarted ? `${500 * i}ms` : '0ms'}}
+        <Zoom key={card.id} in={gameState.wasStarted}
+          style={{ transitionDelay: gameState.turn > 0 ? '0ms' : `${500 * i}ms` }}
         >
-          <Paper key={card.id} elevation={3} p={2} >{card.name}</Paper>
+          <Paper key={card.id} elevation={3} p={2} onClick={() => discardHandle(card.id)} >{card.name}</Paper>
         </Zoom>
       );
     });
-    return cards;
   };
-
+/*
   const getDrewCard = drew => {
-    return(
+    const me = Game.getMyState(gameState);
+    return (
       drew
-        ? <Paper key={me.drew.id} elevation={3} p={2} >{me.drew.name}</Paper>
+        ? (
+          <Zoom key={drew.id} in={me.canDiscard} style={{ transitionDelay: '200ms' }}>
+            <Paper key={me.drew.id} elevation={3} p={2} onClick={() => discardHandle(me.drew.id)} >
+              {me.drew.name}
+            </Paper>
+          </Zoom>
+        )
         : null
     )
   }
-
+*/
   return (
     <Box
       className={handClasses.vCards}
@@ -37,7 +47,7 @@ export default function MyHand(/*{ hand, isVirtical = true, centering = true }*/
       flexDirection="row"
     >
       {getHandCards(me.hand)}
-      {getDrewCard(me.drew)}
+      {/* {getDrewCard(me.drew)} */}
     </Box>
   )
 }

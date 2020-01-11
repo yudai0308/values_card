@@ -11,10 +11,8 @@ export default function HandBack({ cardNum, isVirtical = true, centering = true 
     let cards = [];
     for (let i = 1; i <= n; i++) {
       cards.push(
-        <Zoom key={i} in={gameState.wasStarted} style={{
-          transitionDelay: gameState.wasStarted ? `${500 * i}ms` : '0ms'
-        }}>
-          <Paper key={i} elevation={3} p={2} ></Paper>
+        <Zoom key={i} in={gameState.wasStarted} style={{ transitionDelay: `${500 * i}ms` }}>
+          <Paper key={i} elevation={3} p={2} />
         </Zoom>
       );
     }

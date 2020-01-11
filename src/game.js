@@ -76,11 +76,34 @@ export default class Game {
     const drew = newGameState.deck.shift();
     if (newGameState.isSingleMode) {
       let me = this.getMyState(newGameState);
-      me = { ...me, drew: drew, canDraw: false };
+      // me = { ...me, drew: drew, canDraw: false, canDiscard: true, };
+      me = { ...me, hand: [...me.hand, drew], canDraw: false, canDiscard: true, };
       newGameState.players = [me];
       return newGameState;
     } else {
       return;
+    }
+  }
+
+  getCardById(id) {
+    return values.find(v => v.id === id);
+  }
+
+  static discard(gameState, cardId) {
+    const me = this.getMyState(gameState);
+    if (!me.canDiscard) return gameState;
+
+    let newGameState = { ...gameState };
+    if (newGameState.isSingleMode) {
+      const discard = me.hand.find(card => card.id === cardId);
+      newGameState.discards.push(discard);
+      newGameState.turn++
+      me.hand = me.hand.filter(card => card.id !== cardId);
+      me.canDiscard = false;
+      me.canDraw = true;
+      return { ...newGameState, players: [me] };
+    } else {
+      return gameState;
     }
   }
 }

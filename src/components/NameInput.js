@@ -31,17 +31,17 @@ export default function NameInput({ style }) {
     let deck = await Game.createDeck();
     let hand = [];
     for (let i = 0; i < 5; i++) { hand.push(deck.shift()) }
-    const myState = {
+    const me = {
       ...defaultPlayerState, name: name, hand: hand,
       isReady: true, isMyState: true,
     };
     if (gameState.isSingleMode) {
       setGameState(prev => {
-        return { ...prev, wasStarted: true, deck: deck, players: [myState] };
+        return { ...prev, wasStarted: true, deck: deck, players: [me] };
       });
       await sleep(2500);
-      myState.canDraw = true;
-      setGameState(prev => ({ ...prev, players: [myState] }));
+      me.canDraw = true;
+      setGameState(prev => ({ ...prev, turn: 1, players: [me] }));
     } else {
       // みんなで遊ぶ場合
       return;
