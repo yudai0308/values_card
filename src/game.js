@@ -85,6 +85,34 @@ export default class Game {
     }
   }
 
+  static drawCardFromDiscards(gameState, cardId) {
+    if (gameState.discards.length === 0) {
+      console.log("捨て札にカードがありません。");
+      return gameState;
+    }
+
+    let newGameState = { ...gameState };
+    if (newGameState.isSingleMode) {
+      const drew = newGameState.discards.find(card => card.id === cardId);
+      if (!drew) {
+        console.log("カード情報が確認できませんでした。");
+        return gameState;
+      }
+      let me = this.getMyState(newGameState);
+      me.hand.push(drew);
+      me = { ...me, canDraw: false, canDiscard: true, };
+
+      newGameState = {
+        ...newGameState,
+        discards: newGameState.discards.filter(card => card.id !== cardId),
+        players: [me],
+      }
+      return newGameState;
+    } else {
+      return gameState;
+    }
+  }
+
   getCardById(id) {
     return values.find(v => v.id === id);
   }

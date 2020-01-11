@@ -16,9 +16,14 @@ export default function MyHand() {
     return hand.map((card, i) => {
       return (
         <Zoom key={card.id} in={gameState.wasStarted}
-          style={{ transitionDelay: gameState.turn > 0 ? '0ms' : `${500 * i}ms` }}
+          style={{ transitionDelay: gameState.turn > 0 ? '200ms' : `${500 * i}ms` }}
         >
-          <Paper key={card.id} elevation={3} p={2} onClick={() => discardHandle(card.id)} >{card.name}</Paper>
+          <Paper key={card.id} elevation={3} p={3}
+            style={i === 5 ? {marginLeft: "20px"} : null}
+            onClick={() => discardHandle(card.id)}
+          >
+            {card.name}
+          </Paper>
         </Zoom>
       );
     });
