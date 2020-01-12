@@ -28,7 +28,7 @@ export default function Field({ isSingleMode }) {
     ...defaultGameState,
     isSingleMode: isSingleMode,
   });
-  const deckPosition = { top: 220, left: 300 }
+  const deckPosition = { top: 220, left: 320 }
   const me = Game.getMyState(gameState);
 
   return (
