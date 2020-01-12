@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Box, } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import NameFiled from './NameField';
-import Deck from './Deck';
+import Deckset from './Deckset';
 import HandBack from './HandBack';
 import MyHand from './MyHand';
 import Discard from './Discard';
@@ -25,16 +25,14 @@ import { GameContext } from '../contexts';
 export default function Field({ isSingleMode }) {
   const fieldClasses = useFieldStyles();
   const [gameState, setGameState] = useState({
-    ...defaultGameState,
-    isSingleMode: isSingleMode,
+    ...defaultGameState, isSingleMode: isSingleMode,
   });
-  const deckPosition = { top: 220, left: 320 }
+  const deckPosition = { top: 150, left: 220 }
   const me = Game.getMyState(gameState);
 
   return (
     <GameContext.Provider value={{ gameState: gameState, setGameState: setGameState }}>
       <Box display="flex" justifyContent="center">
-        <Deck style={deckPosition} />
         <Box className={fieldClasses.mainField}>
           <Box style={{ width: 700, height: 90 }}>
             {gameState.isSingleMode ? null : <HandBack cardNum={5} />}
@@ -49,6 +47,7 @@ export default function Field({ isSingleMode }) {
                 {gameState.isSingleMode ? null : <HandBack cardNum={5} isVirtical={false} centering={false} />}
               </Box>
               <Box style={{ width: 528, height: 420 }}>
+                <Deckset style={deckPosition} />
                 <NameFiled />
               </Box>
               <Box style={{ width: 86, height: 420 }}>

@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimplePaper({ style }) {
+export default function Deck({ style }) {
   const classes = useStyles();
   const { gameState, setGameState } = useContext(GameContext);
   const me = Game.getMyState(gameState);
@@ -41,7 +41,6 @@ export default function SimplePaper({ style }) {
       <Paper style={{ zIndex: 2, top: 6 }} elevation={3} />
       <Paper style={{ zIndex: 1, top: 8 }} elevation={3} />
       <Paper style={{ zIndex: 0, top: 10 }} elevation={3} />
-    </Box
-    >
+    </Box>
   );
 }
