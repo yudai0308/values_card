@@ -5,7 +5,7 @@ import UserName from './UserName';
 import Game from '../game';
 
 export default function NameFiled() {
-  const { gameState } = useContext(GameContext);
+  const { gameState, gameDispatch } = useContext(GameContext);
   const nameInputStyle = {
     position: "relative",
     marginTop: 360,
@@ -19,17 +19,18 @@ export default function NameFiled() {
     display: Game.IamReady(gameState) ? "block" : "none",
   };
 
-  let component;
-  if (gameState.isSingleMode) {
-    const players = gameState.players
-    if (players.length === 0) {
-      component = <NameInput style={nameInputStyle} />
+  const getNameField = () => {
+    if (gameState.isSingleMode) {
+      const players = gameState.players
+      if (players.length === 0) {
+        return <NameInput style={nameInputStyle} />
+      } else {
+        const name = players[0].name;
+        return <UserName style={nameElemStyle} name={name} />
+      }
     } else {
-      const name = players[0].name;
-      component = <UserName style={nameElemStyle} name={name} />
+      return <div>みんなで遊ぶ</div>;
     }
-  } else {
-    component = <div>みんなで遊ぶ</div>;
   }
-  return component;
+  return getNameField();
 }

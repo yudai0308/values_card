@@ -1,8 +1,6 @@
 import React, { useContext, useRef } from 'react';
-import Game from '../game';
 import { sleep } from '../libs';
 import { GameContext } from '../contexts';
-import { defaultPlayerState } from '../conf';
 import {
   makeStyles,
   Box,
@@ -22,31 +20,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function NameInput({ style }) {
-  const { gameState, setGameState } = useContext(GameContext);
+  const { gameState, gameDispatch } = useContext(GameContext);
   const inputRef = useRef();
   const classes = useStyles();
   const handleSubmit = async e => {
     e.preventDefault();
     const name = inputRef.current.value;
-    let deck = await Game.createDeck();
-    let hand = [];
-    for (let i = 0; i < 5; i++) { hand.push(deck.shift()) }
-    const me = {
-      ...defaultPlayerState, name: name, hand: hand,
-      isReady: true, isMyState: true,
-    };
-    if (gameState.isSingleMode) {
-      setGameState(prev => {
-        return { ...prev, wasStarted: true, deck: deck, players: [me] };
-      });
-      await sleep(2500);
-      me.canDraw = true;
-      setGameState(prev => ({ ...prev, turn: 1, players: [me] }));
-    } else {
-      // みんなで遊ぶ場合
-      return;
-    }
+    gameDispatch({ type: "createDeck" });
+    gameDispatch({ type: "addPlayer", name: name });
+    gameDispatch({ type: "distributeCards" })
+    await sleep(2500); // 配り終わるまで待機
+    gameDispatch({ type: "startGame" });
   }
+
   return (
     <Box style={{ ...style, position: "relative" }}>
       <form onSubmit={handleSubmit}>

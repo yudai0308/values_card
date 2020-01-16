@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { Box } from '@material-ui/core';
 import NameFiled from './NameField';
 import Deckset from './Deckset';
@@ -9,6 +9,7 @@ import Game from '../game';
 import { useFieldStyles } from '../styles';
 import { defaultGameState, fieldFrame, cardFrame } from '../conf';
 import { GameContext } from '../contexts';
+import gameReducer from '../gameReducer';
 
 /*
 1. 「開始」ボタンを押す => wasStarted を true に変更
@@ -24,14 +25,12 @@ import { GameContext } from '../contexts';
 
 export default function Field({ isSingleMode }) {
   const fieldClasses = useFieldStyles();
-  const [gameState, setGameState] = useState({
-    ...defaultGameState, isSingleMode: isSingleMode,
-  });
+  const [gameState, gameDispatch] = useReducer(gameReducer, defaultGameState);
   const deckPosition = { top: 150, left: 220 }
   const me = Game.getMyState(gameState);
 
   return (
-    <GameContext.Provider value={{ gameState: gameState, setGameState: setGameState }}>
+    <GameContext.Provider value={{ gameState: gameState, gameDispatch: gameDispatch }}>
       <Box display="flex" justifyContent="center">
         <Box className={fieldClasses.mainField}>
           <Box style={{ width: 700, height: 90 }}>
