@@ -1,18 +1,20 @@
-import React from "react";
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import { useStyles } from "../styles";
+import React, { useReducer } from "react";
+import CardTable from "./CardTable";
+import ResultPage from './ResultPage';
+import { defaultGameState } from '../conf';
+import { GameContext } from '../contexts';
+import gameReducer from '../gameReducer';
 
-export default function Field() {
-  const classes = useStyles();
+export default function Field(props) {
+  const [gameState, gameDispatch] = useReducer(gameReducer, defaultGameState);
+
   return (
-    <Box display="flex" justifyContent="center">
-      <Typography component="div" className={classes.mainField}>
-        MAIN
-      </Typography>
-      <Typography component="div" className={classes.sideField}>
-        SIDE
-      </Typography>
-    </Box>
+    <GameContext.Provider value={{ gameState: gameState, gameDispatch: gameDispatch }}>
+      {
+        !gameState.ended
+        ? <CardTable props={props} />
+        : <ResultPage />
+      }
+    </GameContext.Provider>
   );
 }
