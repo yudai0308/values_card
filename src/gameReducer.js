@@ -91,30 +91,37 @@ export default function gameReducer(gameState, action) {
       }
     case "discard":
       {
-        console.log(111)
-
         let me = Game.getMyState(gameState);
         if (!me.canDiscard) return gameState;
 
         if (gameState.isSingleMode) {
           const cardId = action.cardId;
           const discard = me.hand.find(card => card.id === cardId);
+          const hand = me.hand.filter(card => card.id !== cardId)
           gameState.discards.push(discard);
           gameState.turn++
-          me = {
-            ...me,
-            hand: me.hand.filter(card => card.id !== cardId),
-            canDiscard: false,
-            canDraw: true,
+          // 山札からカードがなくなった場合
+          if (gameState.deck.length === 0) {
+            gameState.ended = true;
+            me.result.values = hand;
           }
+          me = { ...me, hand: hand, canDiscard: false, canDraw: true }
           return { ...gameState, players: [me] };
         } else {
           return gameState;
         }
       }
-    case "5":
+    case "setMyValue":
       {
-        return true;
+        let me = Game.getMyState(gameState);
+        me.result.values = action.values;
+        return { ...gameState, players: [me] };
+      }
+    case "setComment":
+      {
+        let me = Game.getMyState(gameState);
+        me.result.comment = action.comment;
+        return { ...gameState, players: [me] };
       }
     case "6":
       {
