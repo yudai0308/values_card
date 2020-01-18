@@ -12,8 +12,8 @@ export default function Field(props) {
     <GameContext.Provider value={{ gameState: gameState, gameDispatch: gameDispatch }}>
       {
         !gameState.ended
-        ? <CardTable props={props} />
-        : <ResultPage />
+          ? <CardTable props={props} />
+          : <ResultPage />
       }
     </GameContext.Provider>
   );
