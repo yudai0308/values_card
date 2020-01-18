@@ -12,7 +12,7 @@ export const cardFrame = {
 export const defaultGameState = {
   isSingleMode: true,
   wasStarted: false,
-  wasEnded: false,
+  ended: false,
   turn: 0,
   deck: [],
   discards: [],
@@ -29,7 +29,7 @@ export const defaultPlayerState = {
   name: "",
   hand: [],
   drew: null,
-  result: { value: [], comment: "" }
+  result: { values: [], comment: "" }
 };
 
 // export const values = [
