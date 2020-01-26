@@ -1,12 +1,8 @@
-import React from "react";
-import { Link } from 'react-router-dom'
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+import React, { useContext } from 'react';
+import { GameContext } from '../contexts';
+import { Box } from "@material-ui/core";
+import Game from "../game";
 
-export default function Toppage() {
-  return (
-    <Typography component="div">
-      Test
-    </Typography>
-  );
+export default function Test() {
+  //
 }

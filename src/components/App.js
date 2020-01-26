@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 import Header from './Header';
 import Toppage from './Toppage';
 import Single from './Single';
+import Multi from './Multi';
 import Room from './Room';
 import About from './About';
 import Test from "./Test";
@@ -34,7 +35,7 @@ function App() {
               <Switch>
                 <Route exact path="/" component={Toppage} />
                 <Route path="/single" component={Single} />
-                <Route path="/room" component={Room} />
+                <Route path="/multi" component={Multi} />
                 <Route path="/about" component={About} />
                 <Route path="/test" component={Test} />
                 <Route path="*" ><Redirect to="/" /></Route>
